@@ -49,6 +49,31 @@ async function fileExists(p: string): Promise<boolean> {
   }
 }
 
+async function removeWorkspaceProtocolDepsForStandaloneUiInstall(uiDir: string): Promise<void> {
+  const pkgPath = join(uiDir, 'package.json')
+  const pkg = JSON.parse(await readFile(pkgPath, 'utf8')) as {
+    dependencies?: Record<string, string>
+    devDependencies?: Record<string, string>
+  }
+  let removed = 0
+  for (const field of ['dependencies', 'devDependencies'] as const) {
+    const deps = pkg[field]
+    if (!deps) continue
+    for (const [name, spec] of Object.entries(deps)) {
+      if (typeof spec === 'string' && spec.startsWith('workspace:')) {
+        delete deps[name]
+        removed++
+      }
+    }
+  }
+  if (removed > 0) {
+    await writeFile(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`, 'utf8')
+    console.log(
+      `  [control-ui] removed ${removed} workspace:* UI dep(s); Vite resolves them from copied source packages`,
+    )
+  }
+}
+
 function gitTagForNpmVersion(version: string): string {
   const v = version.trim()
   if (!v) throw new Error('OpenClaw version is empty')
@@ -366,6 +391,10 @@ export async function downloadAndBuildOpenClawControlUiAt(
     const uiDest = join(openclawRoot, 'ui')
     const sharedSrc = join(srcRoot, 'src')
     const sharedDest = join(openclawRoot, 'src')
+    const packagesSrc = join(srcRoot, 'packages')
+    const packagesDest = join(openclawRoot, 'packages')
+    const tsconfigSrc = join(srcRoot, 'tsconfig.json')
+    const tsconfigDest = join(openclawRoot, 'tsconfig.json')
     const scriptSrc = join(srcRoot, 'scripts', 'ui.js')
     const scriptDestDir = join(openclawRoot, 'scripts')
     const scriptDest = join(scriptDestDir, 'ui.js')
@@ -374,6 +403,13 @@ export async function downloadAndBuildOpenClawControlUiAt(
     await cp(uiSrc, uiDest, { recursive: true })
     await rm(sharedDest, { recursive: true, force: true })
     await cp(sharedSrc, sharedDest, { recursive: true })
+    if (await fileExists(packagesSrc)) {
+      await rm(packagesDest, { recursive: true, force: true })
+      await cp(packagesSrc, packagesDest, { recursive: true })
+    }
+    if (await fileExists(tsconfigSrc)) {
+      await cp(tsconfigSrc, tsconfigDest)
+    }
 
     const appsSrc = join(srcRoot, 'apps')
     const appsDest = join(openclawRoot, 'apps')
@@ -386,6 +422,7 @@ export async function downloadAndBuildOpenClawControlUiAt(
     await cp(scriptSrc, scriptDest)
 
     await applyOpenClawUiLitDecoratorCompatPatches(uiDest)
+    await removeWorkspaceProtocolDepsForStandaloneUiInstall(uiDest)
 
     console.log('  [control-ui] npm install in ui/ (Vite + deps)...')
     execSync('npm install --no-audit --no-fund', {
@@ -428,11 +465,15 @@ async function removeBundledUiSources(openclawDir: string): Promise<void> {
   const uiDest = join(openclawDir, 'ui')
   const sharedDest = join(openclawDir, 'src')
   const appsDest = join(openclawDir, 'apps')
+  const packagesDest = join(openclawDir, 'packages')
+  const tsconfigDest = join(openclawDir, 'tsconfig.json')
   const scriptDest = join(openclawDir, 'scripts', 'ui.js')
   const scriptDestDir = join(openclawDir, 'scripts')
   await rm(uiDest, { recursive: true, force: true })
   await rm(sharedDest, { recursive: true, force: true })
   await rm(appsDest, { recursive: true, force: true })
+  await rm(packagesDest, { recursive: true, force: true })
+  await rm(tsconfigDest, { force: true })
   await rm(scriptDest, { force: true })
   try {
     const rest = await readdir(scriptDestDir)
