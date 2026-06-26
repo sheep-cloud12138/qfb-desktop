@@ -16,6 +16,7 @@ const VERIFY_STATE_DIR = join(BUILD_DIR, '_verify_tmp')
 const NODE_EXE = join(BUILD_DIR, 'node', 'node.exe')
 const OPENCLAW_DIR = join(BUILD_DIR, 'openclaw')
 const CLI_VERIFY_TIMEOUT_MS = Number(process.env.OPENCLAW_CLI_VERIFY_TIMEOUT_MS ?? 120_000)
+const QVERIS_SKILL_MARKER = join(OPENCLAW_DIR, 'skills', 'qveris-official', 'SKILL.md')
 
 async function fileExists(p: string): Promise<boolean> {
   try {
@@ -63,6 +64,12 @@ async function main(): Promise<void> {
   if (!(await fileExists(join(OPENCLAW_DIR, 'node_modules')))) {
     throw new Error('build/openclaw/node_modules not found. Run "pnpm run download-openclaw" first.')
   }
+  if (!(await fileExists(QVERIS_SKILL_MARKER))) {
+    throw new Error(
+      'build/openclaw missing skills/qveris-official/SKILL.md. Run "pnpm run download-qveris-skills" before packaging.',
+    )
+  }
+  console.log('  [ok] skills/qveris-official')
 
   const feishuSdkPkg = getOpenClawFeishuSdkPackageJsonPath(OPENCLAW_DIR)
   if (!(await fileExists(feishuSdkPkg))) {

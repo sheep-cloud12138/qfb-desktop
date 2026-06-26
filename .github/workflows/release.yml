@@ -227,6 +227,7 @@ jobs:
         run: |
           pnpm run download-node
           pnpm run download-openclaw
+          pnpm run download-qveris-skills
 
       - name: Assert OpenClaw npm bundle matches desktop pin
         run: pnpm exec tsx scripts/assert-openclaw-pin-aligns.ts

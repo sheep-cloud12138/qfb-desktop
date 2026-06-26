@@ -263,6 +263,7 @@ async function main(): Promise<void> {
       ['dist/entry.js', 'dist/entry.mjs'],
       join('dist', 'control-ui', 'index.html'),
       'node_modules',
+      join('skills', 'qveris-official', 'SKILL.md'),
     ],
     forceOpenclawCopy,
   )
@@ -292,6 +293,7 @@ async function main(): Promise<void> {
     join(DEST_OPENCLAW, 'dist'),
     join(DEST_OPENCLAW, 'dist', 'control-ui', 'index.html'),
     join(DEST_OPENCLAW, 'node_modules'),
+    join(DEST_OPENCLAW, 'skills', 'qveris-official', 'SKILL.md'),
     getOpenClawFeishuSdkPackageJsonPath(DEST_OPENCLAW),
   ]
   for (const p of required) {

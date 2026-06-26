@@ -112,6 +112,19 @@ async function main(): Promise<void> {
   }
   console.log('  [ok] @larksuiteoapi/node-sdk in resources/openclaw')
 
+  const qverisSkill = join(
+    unpacked,
+    'resources',
+    'openclaw',
+    'skills',
+    'qveris-official',
+    'SKILL.md',
+  )
+  if (!(await exists(qverisSkill))) {
+    throw new Error(`Packaged app missing QVeris skill: ${qverisSkill}`)
+  }
+  console.log('  [ok] skills/qveris-official in resources/openclaw')
+
   const markerPath = join(unpacked, 'resources', 'openclaw', '.openclaw-version')
   if (await exists(markerPath)) {
     const marker = (await readFile(markerPath, 'utf8')).trim()
