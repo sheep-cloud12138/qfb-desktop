@@ -50,6 +50,9 @@ export const IPC_PORT_CHECK = 'port:check' as const
 /** Wizard: test model connectivity */
 export const IPC_WIZARD_TEST_MODEL = 'wizard:testModel' as const
 
+/** Wizard: test QVeris API connectivity */
+export const IPC_WIZARD_TEST_QVERIS = 'wizard:testQveris' as const
+
 /** Wizard: atomically write config + credentials + start gateway */
 export const IPC_WIZARD_COMPLETE_SETUP = 'wizard:completeSetup' as const
 
@@ -233,6 +236,7 @@ export const IPC_INVOKE_CHANNELS = [
   IPC_SYSTEM_OPEN_PATH,
   IPC_PORT_CHECK,
   IPC_WIZARD_TEST_MODEL,
+  IPC_WIZARD_TEST_QVERIS,
   IPC_WIZARD_COMPLETE_SETUP,
   IPC_SYSTEM_OPEN_LOG_DIR,
   IPC_SHELL_GET_VERSIONS,

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useWizardStore } from '@/stores/wizard-store'
 import {
   Brain,
+  Sparkles,
   MessageSquare,
   Server,
   Loader2,
@@ -155,10 +156,11 @@ export function CompleteStep() {
   const { t } = useTranslation()
   const store = useWizardStore()
   const wizardData = store.getWizardData()
-  const { modelConfig, channelConfig, gatewayConfig } = wizardData
+  const { modelConfig, qverisConfig, channelConfig, gatewayConfig } = wizardData
   const { deployPhase, deployMessage } = store
 
   const [showApiKey, setShowApiKey] = useState(false)
+  const [showQverisApiKey, setShowQverisApiKey] = useState(false)
   const isDeploying = deployPhase === 'writing' || deployPhase === 'starting'
 
   const handleEditStep = (step: number) => {
@@ -183,7 +185,7 @@ export function CompleteStep() {
         <p className="text-xs sm:text-sm text-muted-foreground mt-1">{t('wizard.complete.subtitle')}</p>
       </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 flex-1 content-start">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 flex-1 content-start">
         {/* Model Summary */}
         <SummaryCard
           icon={<Brain className="w-4 h-4" />}
@@ -225,11 +227,47 @@ export function CompleteStep() {
           />
         </SummaryCard>
 
+        {/* QVeris Summary */}
+        <SummaryCard
+          icon={<Sparkles className="w-4 h-4" />}
+          title={t('wizard.complete.qverisConfig')}
+          onEdit={isDeploying ? undefined : () => handleEditStep(2)}
+        >
+          <SummaryRow
+            label={t('wizard.complete.apiKey')}
+            value={
+              qverisConfig.apiKey ? (
+                <span className="inline-flex items-center gap-1.5 min-w-0 flex-1">
+                  <span className="truncate">
+                    {showQverisApiKey
+                      ? qverisConfig.apiKey
+                      : maskSecret(qverisConfig.apiKey)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setShowQverisApiKey((v) => !v)}
+                    className="text-muted-foreground hover:text-foreground transition-colors shrink-0"
+                    aria-label={showQverisApiKey ? t('wizard.qveris.hideApiKey') : t('wizard.qveris.showApiKey')}
+                  >
+                    {showQverisApiKey ? (
+                      <EyeOff className="w-3.5 h-3.5" />
+                    ) : (
+                      <Eye className="w-3.5 h-3.5" />
+                    )}
+                  </button>
+                </span>
+              ) : (
+                t('wizard.complete.notConfigured')
+              )
+            }
+          />
+        </SummaryCard>
+
         {/* Channel Summary */}
         <SummaryCard
           icon={<MessageSquare className="w-4 h-4" />}
           title={t('wizard.complete.channelConfig')}
-          onEdit={isDeploying ? undefined : () => handleEditStep(2)}
+          onEdit={isDeploying ? undefined : () => handleEditStep(3)}
         >
           <SummaryRow label={t('wizard.complete.channel')} value={channelDisplay} />
           {!channelConfig.skipChannels && channelConfig.selectedChannel === 'feishu' && channelConfig.feishu && (
@@ -259,7 +297,7 @@ export function CompleteStep() {
         <SummaryCard
           icon={<Server className="w-4 h-4" />}
           title={t('wizard.complete.gatewaySettings')}
-          onEdit={isDeploying ? undefined : () => handleEditStep(3)}
+          onEdit={isDeploying ? undefined : () => handleEditStep(4)}
         >
           <SummaryRow label={t('wizard.complete.port')} value={String(gatewayConfig.port)} />
           <SummaryRow

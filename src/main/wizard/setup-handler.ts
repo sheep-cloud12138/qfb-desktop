@@ -44,7 +44,12 @@ export function sanitizeWizardState(state: WizardState): WizardState {
     ...gw,
     authToken: gw.authToken.trim(),
   }
-  return { ...state, modelConfig, gatewayConfig }
+  const qc = state.qverisConfig ?? { apiKey: '' }
+  const qverisConfig: WizardState['qverisConfig'] = {
+    ...qc,
+    apiKey: qc.apiKey.trim(),
+  }
+  return { ...state, modelConfig, qverisConfig, gatewayConfig }
 }
 
 interface SetupDeps {
@@ -475,6 +480,14 @@ function buildOpenClawConfig(state: WizardState): OpenClawConfig {
         workspace: path.join(getUserDataDir(), 'workspace'),
       },
     },
+  }
+
+  const qverisApiKey = state.qverisConfig?.apiKey?.trim()
+  if (qverisApiKey) {
+    config.env = {
+      ...(config.env ?? {}),
+      QVERIS_API_KEY: qverisApiKey,
+    }
   }
 
   if (!state.channelConfig.skipChannels) {

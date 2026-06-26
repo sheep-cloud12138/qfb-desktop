@@ -144,6 +144,7 @@ export interface ElectronAPI {
   systemOpenLogDir: () => Promise<void>
   portCheck: (port: number) => Promise<PortCheckResult>
   wizardTestModel: (config: ModelConfig) => Promise<WizardTestModelResult>
+  wizardTestQveris: (apiKey: string) => Promise<WizardTestModelResult>
   wizardCompleteSetup: (state: WizardState) => Promise<WizardCompleteResult>
   shellGetVersions: () => Promise<AppVersionInfo>
   shellResizeForMainInterface: () => Promise<void>

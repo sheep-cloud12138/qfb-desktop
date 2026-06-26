@@ -8,6 +8,7 @@
     "steps": {
       "welcome": "欢迎",
       "model": "模型",
+      "qveris": "QVeris",
       "channel": "通道",
       "gateway": "网关",
       "complete": "完成"
@@ -121,6 +122,22 @@
       "showApiKey": "显示 API Key",
       "hideApiKey": "隐藏 API Key"
     },
+    "qveris": {
+      "title": "QVeris 工具",
+      "subtitle": "填写 QVeris API Key，给内置 qveris-official 技能使用。也可以先跳过，以后再补。",
+      "apiKey": "QVeris API Key",
+      "apiKeyStored": "这个 Key 只会写入本机 OpenClaw 配置，字段名是 QVERIS_API_KEY，供技能读取。",
+      "placeholder": "sk-...",
+      "testConnection": "测试连接",
+      "testing": "测试中…",
+      "connectionSuccess": "连接成功",
+      "connectionFailed": "连接失败，请检查 QVeris API Key。",
+      "networkError": "无法连接到 QVeris，请检查网络连接。",
+      "optionalBadge": "可选",
+      "skipHint": "这一步可以跳过。填写后，OpenClaw 会把 QVERIS_API_KEY 传给 QVeris 技能。",
+      "showApiKey": "显示 QVeris API Key",
+      "hideApiKey": "隐藏 QVeris API Key"
+    },
     "channel": {
       "title": "通道配置",
       "subtitle": "配置消息通道以连接飞书、Telegram、WhatsApp 或 Discord。",
@@ -196,9 +213,11 @@
       "title": "确认配置",
       "subtitle": "检查以下配置，点击「确认并启动」完成设置。",
       "modelConfig": "模型配置",
+      "qverisConfig": "QVeris 工具",
       "provider": "提供商",
       "defaultModel": "默认模型",
       "apiKey": "API Key",
+      "notConfigured": "未配置",
       "channelConfig": "通道配置",
       "channel": "通道",
       "webChatOnly": "仅 WebChat（已跳过通道配置）",

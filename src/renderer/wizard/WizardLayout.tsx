@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/select'
 import { WelcomeStep } from './steps/WelcomeStep'
 import { ModelStep } from './steps/ModelStep'
+import { QverisStep } from './steps/QverisStep'
 import { ChannelStep } from './steps/ChannelStep'
 import { GatewayStep } from './steps/GatewayStep'
 import { CompleteStep } from './steps/CompleteStep'
@@ -31,6 +32,7 @@ import {
 const STEP_COMPONENTS = [
   WelcomeStep,
   ModelStep,
+  QverisStep,
   ChannelStep,
   GatewayStep,
   CompleteStep,

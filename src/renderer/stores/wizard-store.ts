@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import type {
   ModelConfig,
+  QverisConfig,
   ChannelConfig,
   GatewayWizardConfig,
   WizardState,
@@ -11,7 +12,7 @@ import type { TFunction } from 'i18next'
 
 // ─── Step Definitions ────────────────────────────────────────────────────────
 
-export const WIZARD_STEP_COUNT = 5
+export const WIZARD_STEP_COUNT = 6
 
 export interface WizardStepDef {
   id: string
@@ -22,6 +23,7 @@ export interface WizardStepDef {
 export const WIZARD_STEPS: readonly WizardStepDef[] = [
   { id: 'welcome', label: 'Welcome' },
   { id: 'model', label: 'Model' },
+  { id: 'qveris', label: 'QVeris', skippable: true },
   { id: 'channel', label: 'Channels', skippable: true },
   { id: 'gateway', label: 'Gateway' },
   { id: 'complete', label: 'Complete' },
@@ -55,6 +57,10 @@ const DEFAULT_CHANNEL_CONFIG: ChannelConfig = {
   skipChannels: false,
 }
 
+const DEFAULT_QVERIS_CONFIG: QverisConfig = {
+  apiKey: '',
+}
+
 function createDefaultGatewayConfig(): GatewayWizardConfig {
   return {
     port: 18789,
@@ -76,6 +82,8 @@ interface WizardActions {
   goToStep: (step: number) => void
   /** Merge partial model configuration into current state */
   setModelConfig: (config: Partial<ModelConfig>) => void
+  /** Merge partial QVeris configuration into current state */
+  setQverisConfig: (config: Partial<QverisConfig>) => void
   /** Merge partial channel configuration into current state */
   setChannelConfig: (config: Partial<ChannelConfig>) => void
   /** Merge partial gateway configuration into current state */
@@ -108,6 +116,7 @@ function createInitialState(): WizardInternalState {
     currentStep: 0,
     completedSteps: Array.from({ length: WIZARD_STEP_COUNT }, () => false),
     modelConfig: { ...DEFAULT_MODEL_CONFIG },
+    qverisConfig: { ...DEFAULT_QVERIS_CONFIG },
     channelConfig: { ...DEFAULT_CHANNEL_CONFIG },
     gatewayConfig: createDefaultGatewayConfig(),
     deployPhase: 'idle',
@@ -152,6 +161,11 @@ export const useWizardStore = create<WizardStore>((set, get) => ({
       modelConfig: { ...state.modelConfig, ...config },
     })),
 
+  setQverisConfig: (config) =>
+    set((state) => ({
+      qverisConfig: { ...state.qverisConfig, ...config },
+    })),
+
   setChannelConfig: (config) =>
     set((state) => ({
       channelConfig: { ...state.channelConfig, ...config },
@@ -190,6 +204,8 @@ export const useWizardStore = create<WizardStore>((set, get) => ({
         }
         return true
       case 2:
+        return true
+      case 3:
         if (state.channelConfig.skipChannels) return true
         switch (state.channelConfig.selectedChannel) {
           case 'feishu':
@@ -210,13 +226,13 @@ export const useWizardStore = create<WizardStore>((set, get) => ({
           default:
             return true
         }
-      case 3:
+      case 4:
         return (
           state.gatewayConfig.port > 0 &&
           state.gatewayConfig.port <= 65535 &&
           state.gatewayConfig.authToken.trim().length > 0
         )
-      case 4:
+      case 5:
         return true
       default:
         return false
@@ -224,8 +240,8 @@ export const useWizardStore = create<WizardStore>((set, get) => ({
   },
 
   getWizardData: () => {
-    const { currentStep, modelConfig, channelConfig, gatewayConfig } = get()
-    return { currentStep, modelConfig, channelConfig, gatewayConfig }
+    const { currentStep, modelConfig, qverisConfig, channelConfig, gatewayConfig } = get()
+    return { currentStep, modelConfig, qverisConfig, channelConfig, gatewayConfig }
   },
 
   reset: () => set(createInitialState()),

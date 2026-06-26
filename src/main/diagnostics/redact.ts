@@ -18,7 +18,12 @@ const SENSITIVE_KEYS = new Set([
 ])
 
 function isSensitiveKey(key: string): boolean {
-  return SENSITIVE_KEYS.has(key)
+  const normalized = key.toLowerCase()
+  return (
+    SENSITIVE_KEYS.has(key) ||
+    SENSITIVE_KEYS.has(normalized) ||
+    /api[-_]?key|token|secret|password|authorization|credentials/.test(normalized)
+  )
 }
 
 export function redactConfig(obj: unknown): unknown {

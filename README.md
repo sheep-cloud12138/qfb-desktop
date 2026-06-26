@@ -222,7 +222,7 @@ pnpm run package:win   # Output: dist/OpenClaw-Setup-<version>.exe
 **QVeris official skill:** `package:prepare-deps` downloads
 [`QVerisAI/open-qveris-skills/qveris-official`](https://github.com/QVerisAI/open-qveris-skills/tree/main/qveris-official)
 and copies it into the bundled OpenClaw `skills/qveris-official/` directory. The desktop package does not bundle
-`QVERIS_API_KEY`; users set that at runtime.
+`QVERIS_API_KEY`; users can add it in the setup wizard or set it at runtime.
 
 **Bundled OpenClaw:** Pinned in `package.json` (`openclawBundleVersion`). After `prepare-bundle`, see `bundledOpenClawVersion` in [`resources/bundle-manifest.json`](resources/bundle-manifest.json) (currently **2026.4.2** for desktop **v0.7.0**). Local checks: `pnpm run check-openclaw-versions` (omit `OPENCLAW_SKIP_NPM_LATEST_CHECK` to also compare against npm `latest`).
 

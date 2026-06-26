@@ -8,6 +8,7 @@
     "steps": {
       "welcome": "Welcome",
       "model": "Model",
+      "qveris": "QVeris",
       "channel": "Channels",
       "gateway": "Gateway",
       "complete": "Complete"
@@ -76,6 +77,22 @@
       "noTestHint": "This provider does not support automated testing in the wizard. You can continue and validate later using the CLI.",
       "showApiKey": "Show API Key",
       "hideApiKey": "Hide API Key"
+    },
+    "qveris": {
+      "title": "QVeris Tools",
+      "subtitle": "Add the QVeris API Key used by the bundled qveris-official skill. You can skip this and add it later.",
+      "apiKey": "QVeris API Key",
+      "apiKeyStored": "The key is stored locally in OpenClaw config as QVERIS_API_KEY for bundled skills.",
+      "placeholder": "sk-...",
+      "testConnection": "Test Connection",
+      "testing": "Testing…",
+      "connectionSuccess": "Connection successful",
+      "connectionFailed": "Connection failed. Please check the QVeris API Key.",
+      "networkError": "Unable to connect to QVeris. Please check network connection.",
+      "optionalBadge": "Optional",
+      "skipHint": "You can skip this step. If filled, OpenClaw will pass QVERIS_API_KEY to the QVeris skill.",
+      "showApiKey": "Show QVeris API Key",
+      "hideApiKey": "Hide QVeris API Key"
     },
     "channel": {
       "title": "Channel Configuration",
@@ -152,9 +169,11 @@
       "title": "Confirm Configuration",
       "subtitle": "Review the configuration below and click \"Confirm & Start\" to complete setup.",
       "modelConfig": "Model Configuration",
+      "qverisConfig": "QVeris Tools",
       "provider": "Provider",
       "defaultModel": "Default Model",
       "apiKey": "API Key",
+      "notConfigured": "Not configured",
       "channelConfig": "Channel Configuration",
       "channel": "Channel",
       "webChatOnly": "WebChat only (channels skipped)",

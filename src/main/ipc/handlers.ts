@@ -11,6 +11,7 @@ import type {
 } from '../../shared/types.js'
 import type { PortCheckResult } from '../utils/port-check.js'
 import { testModelConnection } from '../wizard/model-tester.js'
+import { testQverisConnection } from '../wizard/qveris-tester.js'
 import {
   handleWizardCompleteSetup,
   mergeModelIntoOpenClawConfig,
@@ -36,6 +37,7 @@ import {
   IPC_SYSTEM_OPEN_PATH,
   IPC_PORT_CHECK,
   IPC_WIZARD_TEST_MODEL,
+  IPC_WIZARD_TEST_QVERIS,
   IPC_WIZARD_COMPLETE_SETUP,
   IPC_SYSTEM_OPEN_LOG_DIR,
   IPC_SHELL_GET_VERSIONS,
@@ -240,6 +242,9 @@ function wizardStateForModelConfig(modelConfig: ModelConfig): WizardState {
   return {
     currentStep: 0,
     modelConfig,
+    qverisConfig: {
+      apiKey: '',
+    },
     channelConfig: {
       feishu: null,
       telegram: null,
@@ -399,6 +404,16 @@ export function registerIpcHandlers(deps: IpcHandlerDeps): void {
         throw new Error('custom modelConfig must include customProviderId and customBaseUrl')
       }
       return testModelConnection(cfg)
+    }),
+  )
+
+  ipcMain.handle(
+    IPC_WIZARD_TEST_QVERIS,
+    wrapHandler('WIZARD_TEST_QVERIS', (apiKey: unknown) => {
+      if (typeof apiKey !== 'string' || !apiKey.trim()) {
+        throw new Error('QVeris API Key is required')
+      }
+      return testQverisConnection(apiKey.trim())
     }),
   )
 
@@ -1077,6 +1092,7 @@ export function removeIpcHandlers(): void {
   ipcMain.removeHandler(IPC_SYSTEM_OPEN_PATH)
   ipcMain.removeHandler(IPC_PORT_CHECK)
   ipcMain.removeHandler(IPC_WIZARD_TEST_MODEL)
+  ipcMain.removeHandler(IPC_WIZARD_TEST_QVERIS)
   ipcMain.removeHandler(IPC_WIZARD_COMPLETE_SETUP)
   ipcMain.removeHandler(IPC_SYSTEM_OPEN_LOG_DIR)
   ipcMain.removeHandler(IPC_SHELL_GET_VERSIONS)

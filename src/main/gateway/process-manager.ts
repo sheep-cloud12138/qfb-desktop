@@ -125,6 +125,17 @@ function listPresentEnvKeysCaseInsensitive(env: NodeJS.ProcessEnv, keys: readonl
   return [...present]
 }
 
+function resolveConfiguredOpenClawEnv(config?: OpenClawConfig): NodeJS.ProcessEnv {
+  const rawEnv = config?.env
+  if (!rawEnv || typeof rawEnv !== 'object' || Array.isArray(rawEnv)) return {}
+  const env: NodeJS.ProcessEnv = {}
+  for (const [key, value] of Object.entries(rawEnv)) {
+    if (!key || typeof value !== 'string') continue
+    env[key] = value
+  }
+  return env
+}
+
 /** Loopback hosts for NO_PROXY so undici `fetch` in the main process never sends health checks via HTTP(S)_PROXY. */
 const LOOPBACK_NO_PROXY_HOSTS = ['127.0.0.1', 'localhost', '[::1]', '::1'] as const
 
@@ -160,6 +171,7 @@ export function createGatewayLaunchSpec(options: GatewayLaunchOptions = {}, conf
   const envWithoutMinimaxOverride = hasConfiguredMinimaxProfile(config)
     ? stripEnvKeysCaseInsensitive(envWithNode, MINIMAX_ENV_OVERRIDE_KEYS)
     : envWithNode
+  const configuredOpenClawEnv = resolveConfiguredOpenClawEnv(config)
 
   return {
     command: nodePath,
@@ -169,6 +181,7 @@ export function createGatewayLaunchSpec(options: GatewayLaunchOptions = {}, conf
     cwd: getBundledOpenClawDir(),
     env: {
       ...applyOpenClawNoProxyBypass(envWithoutMinimaxOverride),
+      ...configuredOpenClawEnv,
       OPENCLAW_STATE_DIR: getUserDataDir(),
       OPENCLAW_CONFIG_PATH: path.join(getUserDataDir(), OPENCLAW_CONFIG_FILE),
       OPENCLAW_AGENT_DIR: path.join(getUserDataDir(), 'agents', 'main', 'agent'),

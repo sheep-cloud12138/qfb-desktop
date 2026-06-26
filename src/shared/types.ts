@@ -227,6 +227,8 @@ export interface OpenClawConfig {
   channels?: ChannelsConfig
   auth?: AuthConfig
   models?: ModelsConfig
+  /** Environment variables passed through to OpenClaw runtime and bundled skills. */
+  env?: Record<string, string>
   [key: string]: unknown
 }
 
@@ -329,6 +331,11 @@ export interface ChannelConfig {
   skipChannels: boolean
 }
 
+/** Wizard QVeris skill settings */
+export interface QverisConfig {
+  apiKey: string
+}
+
 /** Wizard gateway step data */
 export interface GatewayWizardConfig {
   port: number
@@ -340,6 +347,7 @@ export interface GatewayWizardConfig {
 export interface WizardState {
   currentStep: number
   modelConfig: ModelConfig
+  qverisConfig: QverisConfig
   channelConfig: ChannelConfig
   gatewayConfig: GatewayWizardConfig
 }
