@@ -1,0 +1,165 @@
+name: Package Windows Installer
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload_unpacked:
+        description: Upload win-unpacked directory for debugging
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+concurrency:
+  group: package-win-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION_CI: '24.18.0'
+  OPENCLAW_SKIP_NPM_LATEST_CHECK: '1'
+
+jobs:
+  build_control_ui:
+    name: Build OpenClaw Control UI
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION_CI }}
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Control UI for bundle
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
+        run: pnpm exec tsx scripts/ci-build-openclaw-control-ui.ts
+
+      - name: Upload Control UI dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: openclaw-control-ui-dist
+          path: build/_ci_openclaw_control_ui_root/dist/control-ui
+          retention-days: 2
+          if-no-files-found: error
+
+  package_win:
+    name: Package Qbot Windows installer
+    needs: build_control_ui
+    runs-on: windows-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+    env:
+      CSC_LINK: ''
+      CSC_KEY_PASSWORD: ''
+      ELECTRON_CACHE: ~\AppData\Local\electron\Cache
+      ELECTRON_BUILDER_CACHE: ~\AppData\Local\electron-builder\Cache
+      OPENCLAW_SKIP_CONTROL_UI_BUILD: '1'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Print build identity
+        shell: pwsh
+        run: |
+          Write-Host "GITHUB_REF=$env:GITHUB_REF"
+          Write-Host "GITHUB_SHA=$env:GITHUB_SHA"
+          git rev-parse HEAD
+          git log -1 --oneline
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION_CI }}
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Cache Electron
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.ELECTRON_CACHE }}
+            ${{ env.ELECTRON_BUILDER_CACHE }}
+          key: ${{ runner.os }}-electron-${{ hashFiles('pnpm-lock.yaml', 'electron-builder.config.cjs', 'electron-builder.yml') }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download bundled Node.js and OpenClaw
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
+          npm_config_fetch_retries: '5'
+          npm_config_fetch_retry_mintimeout: '20000'
+        run: |
+          pnpm run download-node
+          pnpm run download-openclaw
+
+      - name: Ensure empty Control UI before merge
+        shell: pwsh
+        run: |
+          $p = Join-Path "build/openclaw/dist" "control-ui"
+          if (Test-Path -LiteralPath $p) {
+            Remove-Item -LiteralPath $p -Recurse -Force -ErrorAction Stop
+          }
+
+      - name: Merge Linux-built Control UI
+        uses: actions/download-artifact@v4
+        with:
+          name: openclaw-control-ui-dist
+          path: build/openclaw/dist/control-ui
+
+      - name: Verify merged Control UI bundle
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
+        run: pnpm exec tsx scripts/verify-merged-control-ui.ts build/openclaw/dist/control-ui
+
+      - name: Package Windows installer
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
+        run: pnpm run package:win
+
+      - name: Copy bundle manifest to dist
+        run: Copy-Item resources/bundle-manifest.json dist/ -Force
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: qbot-windows-installer
+          path: |
+            dist/Qbot-Setup-*.exe
+            dist/bundle-manifest.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload unpacked app
+        if: ${{ inputs.upload_unpacked == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: qbot-win-unpacked
+          path: dist/win-unpacked
+          if-no-files-found: error
+          retention-days: 7

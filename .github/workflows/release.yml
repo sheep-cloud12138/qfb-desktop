@@ -284,9 +284,9 @@ jobs:
         id: upload-installer
         uses: actions/upload-artifact@v4
         with:
-          name: openclaw-desktop-build
+          name: qbot-desktop-build
           path: |
-            dist/OpenClaw-Setup-*.exe
+            dist/Qbot-Setup-*.exe
             dist/bundle-manifest.json
 
   sign_path:
@@ -309,7 +309,7 @@ jobs:
           organization-id: ${{ secrets.SIGNPATH_ORGANIZATION_ID }}
           project-slug: ${{ secrets.SIGNPATH_PROJECT_SLUG }}
           signing-policy-slug: ${{ secrets.SIGNPATH_SIGNING_POLICY_SLUG }}
-          artifact-configuration-slug: openclaw-desktop
+          artifact-configuration-slug: qbot-desktop
           github-artifact-id: ${{ needs.package_win.outputs.artifact-id }}
           wait-for-completion: true
           output-artifact-directory: dist-signed-raw
@@ -326,7 +326,7 @@ jobs:
       - name: Download build artifact for bundle manifest
         uses: actions/download-artifact@v4
         with:
-          name: openclaw-desktop-build
+          name: qbot-desktop-build
           path: manifest-temp
 
       - name: Copy bundle manifest into signed artifact
@@ -338,7 +338,7 @@ jobs:
       - name: Upload signed installer
         uses: actions/upload-artifact@v4
         with:
-          name: openclaw-desktop-setup
+          name: qbot-desktop-setup
           path: dist-signed-raw/
 
   publish_release:
@@ -372,20 +372,20 @@ jobs:
         if: needs.sign_path.result == 'success'
         uses: actions/download-artifact@v4
         with:
-          name: openclaw-desktop-setup
+          name: qbot-desktop-setup
           path: dist
 
       - name: Download build artifact (unsigned)
         if: needs.sign_path.result == 'skipped'
         uses: actions/download-artifact@v4
         with:
-          name: openclaw-desktop-build
+          name: qbot-desktop-build
           path: dist
 
       - name: Generate SHA-256 checksums
         run: |
           cd dist
-          for file in OpenClaw-Setup-*.exe; do
+          for file in Qbot-Setup-*.exe; do
             [ -f "$file" ] || continue
             sha256sum "$file" > "$file.sha256"
           done
@@ -400,9 +400,9 @@ jobs:
           else
             CHANNEL=stable
           fi
-          EXE=$(find dist -name "OpenClaw-Setup-*.exe" -type f | head -1)
+          EXE=$(find dist -name "Qbot-Setup-*.exe" -type f | head -1)
           if [ -z "$EXE" ]; then
-            echo "error: no OpenClaw-Setup-*.exe found in dist"
+            echo "error: no Qbot-Setup-*.exe found in dist"
             exit 1
           fi
           MANIFEST_ARG=""
@@ -422,8 +422,8 @@ jobs:
           tag_name: ${{ inputs.tag || github.ref_name }}
           name: ${{ inputs.tag || github.ref_name }}
           files: |
-            dist/OpenClaw-Setup-*.exe
-            dist/OpenClaw-Setup-*.exe.sha256
+            dist/Qbot-Setup-*.exe
+            dist/Qbot-Setup-*.exe.sha256
             ${{ steps.gen-yml.outputs.yml_file }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
