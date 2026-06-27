@@ -1,6 +1,9 @@
 name: Package Windows Installer
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       upload_unpacked:
