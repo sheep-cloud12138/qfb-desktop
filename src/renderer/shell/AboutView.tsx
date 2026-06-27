@@ -5,7 +5,7 @@ import { ShellLayout } from './ShellLayout'
 import type { AppVersionInfo } from '../../shared/types'
 import { formatMainVersion } from '@/utils/version-format'
 
-const PROJECT_URL = 'https://github.com/agentkernel/openclaw-desktop'
+const PROJECT_URL = 'https://github.com/sheep-cloud12138/qfb-desktop'
 
 export interface AboutViewProps {
   /** Back navigation when embedded in parent layout */
@@ -62,7 +62,7 @@ export function AboutView({ onBack }: AboutViewProps) {
       <div className="flex flex-col items-center justify-center gap-8 min-h-[50vh]">
         <div className="flex flex-col items-center gap-3">
           <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
-            <span className="text-2xl font-bold text-primary-foreground tracking-tight">OC</span>
+            <span className="text-2xl font-bold text-primary-foreground tracking-tight">QB</span>
           </div>
           <h2 className="text-lg font-semibold tracking-tight">{t('shell.about.appNameTitle')}</h2>
         </div>

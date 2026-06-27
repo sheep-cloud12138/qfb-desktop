@@ -66,6 +66,10 @@ function validateOpenclaw(openclawDir) {
   if (!exists(controlUiIndex)) {
     missing.push('dist/control-ui/index.html (gateway Control UI)')
   }
+  const heartbeatTemplate = path.join(openclawDir, 'src', 'agents', 'templates', 'HEARTBEAT.md')
+  if (!exists(heartbeatTemplate)) {
+    missing.push('src/agents/templates/HEARTBEAT.md')
+  }
 
   return missing
 }
@@ -74,14 +78,14 @@ const iconIcoPath = path.join(__dirname, 'resources', 'icon.ico')
 const fastInstallerMode = process.env.OPENCLAW_FAST_INSTALLER !== '0'
 
 module.exports = {
-  appId: 'com.openclaw.desktop',
-  productName: 'OpenClaw Desktop',
+  appId: 'com.qbot.desktop',
+  productName: 'Qbot',
   copyright: 'Copyright © 2026 wurongzhao@AgentKernel',
 
   publish: {
     provider: 'github',
-    owner: 'agentkernel',
-    repo: 'openclaw-desktop',
+    owner: 'sheep-cloud12138',
+    repo: 'qfb-desktop',
     vPrefixedTagName: true,
     releaseType: 'release',
   },
@@ -135,7 +139,7 @@ module.exports = {
   win: {
     target: [{ target: 'nsis', arch: ['x64'] }],
     icon: iconIcoPath,
-    artifactName: 'OpenClaw-Setup-${version}.${ext}',
+    artifactName: 'Qbot-Setup-${version}.${ext}',
     // true = rcedit embeds icon; false skips rcedit (no winCodeSign fetch) — icon missing
     // Without CSC_LINK only resource edit runs, not signing
     // SKIP_EXE_RESOURCE_EDIT=1 skips edit when mirrors are unreachable
@@ -165,7 +169,7 @@ module.exports = {
     installerSidebar: 'resources/installer/installer-sidebar.bmp',
     createDesktopShortcut: true,
     createStartMenuShortcut: true,
-    shortcutName: 'OpenClaw Desktop',
+    shortcutName: 'Qbot',
     runAfterFinish: true,
     deleteAppDataOnUninstall: false,
     // Repo must ship build/installer.nsh (.gitignore exception) — NSIS fails if missing

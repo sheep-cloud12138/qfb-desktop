@@ -11,6 +11,7 @@ import { createRequire } from 'node:module'
 import { join } from 'node:path'
 import { verifyControlUiBundle } from './lib/control-ui-verify.ts'
 import { getOpenClawFeishuSdkPackageJsonPath } from './ensure-openclaw-feishu-sdk.ts'
+import { HEARTBEAT_TEMPLATE_RELATIVE_PATH } from './ensure-openclaw-workspace-templates.ts'
 
 const require = createRequire(import.meta.url)
 const { extractFile } = require('@electron/asar') as {
@@ -124,6 +125,17 @@ async function main(): Promise<void> {
     throw new Error(`Packaged app missing QVeris skill: ${qverisSkill}`)
   }
   console.log('  [ok] skills/qveris-official in resources/openclaw')
+
+  const heartbeatTemplate = join(
+    unpacked,
+    'resources',
+    'openclaw',
+    HEARTBEAT_TEMPLATE_RELATIVE_PATH,
+  )
+  if (!(await exists(heartbeatTemplate))) {
+    throw new Error(`Packaged app missing workspace template: ${heartbeatTemplate}`)
+  }
+  console.log('  [ok] src/agents/templates/HEARTBEAT.md in resources/openclaw')
 
   const markerPath = join(unpacked, 'resources', 'openclaw', '.openclaw-version')
   if (await exists(markerPath)) {

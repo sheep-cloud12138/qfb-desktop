@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * TASK-401: Generate OpenClaw brand resource files (placeholder icons).
- * Brand color #FF4500 + white "OC" text. Replace with designer assets later.
+ * TASK-401: Generate Qbot brand resource files (placeholder icons).
+ * Brand color #FF4500 + white "QB" text. Replace with designer assets later.
  */
 
 import sharp from 'sharp';
@@ -35,7 +35,7 @@ function iconSvg(size) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
   <rect x="${m}" y="${m}" width="${size - m * 2}" height="${size - m * 2}" rx="${r}" ry="${r}" fill="${BRAND}"/>
   <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle"
-        font-family="Segoe UI,Arial,sans-serif" font-weight="bold" font-size="${fs}" fill="${WHITE}">OC</text>
+        font-family="Segoe UI,Arial,sans-serif" font-weight="bold" font-size="${fs}" fill="${WHITE}">QB</text>
 </svg>`;
 }
 
@@ -43,7 +43,7 @@ function traySvg() {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
   <circle cx="16" cy="16" r="15" fill="${BRAND}"/>
   <text x="16" y="17" text-anchor="middle" dominant-baseline="middle"
-        font-family="Segoe UI,Arial,sans-serif" font-weight="bold" font-size="12" fill="${WHITE}">OC</text>
+        font-family="Segoe UI,Arial,sans-serif" font-weight="bold" font-size="12" fill="${WHITE}">QB</text>
 </svg>`;
 }
 
@@ -52,9 +52,9 @@ function sidebarSvg() {
   <rect width="164" height="314" fill="${WHITE}"/>
   <rect width="164" height="100" fill="${BRAND}"/>
   <text x="82" y="40" text-anchor="middle" dominant-baseline="middle"
-        font-family="Segoe UI,Arial,sans-serif" font-weight="bold" font-size="28" fill="${WHITE}">OC</text>
+        font-family="Segoe UI,Arial,sans-serif" font-weight="bold" font-size="28" fill="${WHITE}">QB</text>
   <text x="82" y="68" text-anchor="middle" dominant-baseline="middle"
-        font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="${WHITE}">OpenClaw</text>
+        font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="${WHITE}">Qbot</text>
   <text x="82" y="90" text-anchor="middle" dominant-baseline="middle"
         font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="rgba(255,255,255,0.8)">Windows Desktop</text>
   <line x1="20" y1="120" x2="144" y2="120" stroke="${BRAND}" stroke-width="2"/>
@@ -194,7 +194,7 @@ async function main() {
   await mkdir(RESOURCES_DIR, { recursive: true });
   await mkdir(INSTALLER_DIR, { recursive: true });
 
-  console.log('Generating OpenClaw brand assets...\n');
+  console.log('Generating Qbot brand assets...\n');
   await generateIconIco();
   await generateTrayIcon();
   await generateInstallerSidebar();

@@ -1,6 +1,6 @@
-# Contributing to OpenClaw Desktop
+# Contributing to Qbot
 
-Thank you for considering contributing to OpenClaw Desktop. This repository is a community-maintained Windows desktop distribution for OpenClaw.
+Thank you for considering contributing to Qbot. This repository is a community-maintained Windows desktop distribution for OpenClaw.
 
 ## Development Setup
 
@@ -11,8 +11,8 @@ Thank you for considering contributing to OpenClaw Desktop. This repository is a
 
 ### Quick Start
 ```bash
-git clone https://github.com/agentkernel/openclaw-desktop.git
-cd openclaw-desktop
+git clone https://github.com/sheep-cloud12138/qfb-desktop.git
+cd qfb-desktop
 pnpm install
 pnpm dev
 ```

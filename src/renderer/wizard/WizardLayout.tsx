@@ -76,7 +76,7 @@ export function WizardLayout() {
             <div className="flex items-center gap-3 min-w-0 flex-1">
               <div className="w-8 h-8 shrink-0 rounded-xl bg-primary flex items-center justify-center shadow-sm">
                 <span className="text-xs font-bold text-primary-foreground tracking-tight">
-                  OC
+                  QB
                 </span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-semibold leading-tight tracking-tight">

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Let `OpenClaw Desktop` approve Feishu DM access without relying on a globally installed `openclaw` CLI and without making end users manually look up `open_id` before first use.
+Let `Qbot` approve Feishu DM access without relying on a globally installed `openclaw` CLI and without making end users manually look up `open_id` before first use.
 
 ## User Entry Points
 

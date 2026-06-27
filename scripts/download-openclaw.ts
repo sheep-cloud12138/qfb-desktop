@@ -24,6 +24,7 @@ import {
 import { patchOpenClawFeishuRegisterOnce } from './patch-openclaw-feishu-register-once.ts'
 import { patchOpenClawStripSlackChannel } from './patch-openclaw-strip-slack-channel.ts'
 import { ensureOpenClawFeishuLarkSdk } from './ensure-openclaw-feishu-sdk.ts'
+import { ensureOpenClawWorkspaceTemplates } from './ensure-openclaw-workspace-templates.ts'
 
 /** Fallback when package.json has no `openclawBundleVersion` (discouraged — pin in package.json). */
 const DEFAULT_VERSION = 'latest'
@@ -45,6 +46,7 @@ const CONTROL_UI_DIST = join(OPENCLAW_DIR, 'dist', 'control-ui')
 
 async function finalizeDesktopOpenClawBundle(openclawDir: string): Promise<void> {
   await ensureOpenClawFeishuLarkSdk(openclawDir)
+  await ensureOpenClawWorkspaceTemplates(openclawDir)
   await patchOpenClawFeishuRegisterOnce(openclawDir)
   await patchOpenClawStripSlackChannel(openclawDir)
 }

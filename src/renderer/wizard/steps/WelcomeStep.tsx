@@ -40,7 +40,7 @@ export function WelcomeStep() {
       <header className="text-center space-y-2.5">
         <div className="mx-auto w-14 h-14 rounded-2xl bg-primary flex items-center justify-center shadow-md shadow-primary/20">
           <span className="text-xl font-bold text-primary-foreground tracking-tight">
-            OC
+            QB
           </span>
         </div>
         <h2 className="text-xl font-semibold tracking-tight">

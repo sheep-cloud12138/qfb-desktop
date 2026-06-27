@@ -1,9 +1,9 @@
 {
-  "name": "openclaw-desktop",
+  "name": "qbot-desktop",
   "version": "0.7.0+openclaw.2026.6.10",
   "openclawBundleVersion": "2026.6.10",
   "openclawFeishuLarkSdkVersion": "^1.60.0",
-  "description": "Community-maintained Windows desktop app and installer for OpenClaw.",
+  "description": "Qbot Windows desktop app and installer powered by OpenClaw.",
   "type": "module",
   "main": "out/main/index.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "download-node": "tsx scripts/download-node.ts",
     "download-openclaw": "tsx scripts/download-openclaw.ts",
     "download-qveris-skills": "tsx scripts/download-qveris-skills.ts",
-    "package:prepare-deps": "pnpm run download-node && pnpm run download-openclaw && pnpm run download-qveris-skills",
+    "ensure-workspace-templates": "tsx scripts/ensure-openclaw-workspace-templates.ts",
+    "package:prepare-deps": "pnpm run download-node && pnpm run download-openclaw && pnpm run download-qveris-skills && pnpm run ensure-workspace-templates",
     "prepare-bundle": "tsx scripts/prepare-bundle.ts",
     "check-openclaw-versions": "tsx scripts/check-openclaw-versions.ts",
     "verify-resource-versions": "tsx scripts/check-openclaw-versions.ts",
@@ -30,7 +31,7 @@
     "smoke:csp": "tsx scripts/smoke/gateway-response-headers-smoke.ts",
     "smoke:gateway": "electron scripts/smoke/process-manager-electron-runner.cjs",
     "smoke": "npm run smoke:csp && npm run smoke:gateway",
-    "package:win": "pnpm run build && pnpm run clean-resources && pnpm run check-openclaw-versions -- --pre-pack && pnpm run download-qveris-skills && pnpm run verify-bundle && cross-env REGENERATE_ICON=1 pnpm run generate-resources && pnpm run prepare-bundle && pnpm run check-openclaw-versions && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false SKIP_EXE_RESOURCE_EDIT=0 ELECTRON_BUILDER_BINARIES_MIRROR=https://registry.npmmirror.com/-/binary/electron-builder-binaries/ pnpm exec electron-builder --win --x64 --config electron-builder.config.cjs --publish never && pnpm run verify-packaged-win",
+    "package:win": "pnpm run build && pnpm run clean-resources && pnpm run check-openclaw-versions -- --pre-pack && pnpm run download-qveris-skills && pnpm run ensure-workspace-templates && pnpm run verify-bundle && cross-env REGENERATE_ICON=1 pnpm run generate-resources && pnpm run prepare-bundle && pnpm run check-openclaw-versions && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false SKIP_EXE_RESOURCE_EDIT=0 ELECTRON_BUILDER_BINARIES_MIRROR=https://registry.npmmirror.com/-/binary/electron-builder-binaries/ pnpm exec electron-builder --win --x64 --config electron-builder.config.cjs --publish never && pnpm run verify-packaged-win",
     "package:win:signed": "node scripts/package-win-signed.mjs",
     "generate-dev-cert": "node scripts/generate-dev-cert.mjs",
     "export-dev-cert-for-ci": "node scripts/export-dev-cert-for-ci.mjs"
@@ -90,21 +91,21 @@
   },
   "keywords": [
     "openclaw",
-    "openclaw-desktop",
+    "qbot-desktop",
     "openclaw-windows",
     "openclaw-installer",
     "electron",
     "windows",
     "ai-agent"
   ],
-  "homepage": "https://github.com/agentkernel/openclaw-desktop",
+  "homepage": "https://github.com/sheep-cloud12138/qfb-desktop",
   "author": "wurongzhao@AgentKernel",
   "repository": {
     "type": "git",
-    "url": "https://github.com/agentkernel/openclaw-desktop.git"
+    "url": "https://github.com/sheep-cloud12138/qfb-desktop.git"
   },
   "bugs": {
-    "url": "https://github.com/agentkernel/openclaw-desktop/issues"
+    "url": "https://github.com/sheep-cloud12138/qfb-desktop/issues"
   },
   "license": "GPL-3.0",
   "engines": {

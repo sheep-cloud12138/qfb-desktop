@@ -135,7 +135,7 @@ async function cleanupBeforeQuit(): Promise<void> {
 
 app.whenReady().then(() => {
   if (process.platform === 'win32') {
-    app.setAppUserModelId('OpenClaw.Desktop')
+    app.setAppUserModelId('Qbot.Desktop')
   }
 
   // Uninstaller: --clear-login-item (called from NSIS) removes login item
@@ -236,8 +236,8 @@ app.whenReady().then(() => {
   if (!gotLock) {
     logWarn('[OpenClaw] Single instance lock failed; exiting.')
     dialog.showErrorBox(
-      'OpenClaw is already running',
-      'Another OpenClaw instance is running. Please quit from the system tray first, then restart.',
+      'Qbot is already running',
+      'Another Qbot instance is running. Please quit from the system tray first, then restart.',
     )
     app.quit()
     return

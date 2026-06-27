@@ -56,10 +56,10 @@ export function LoadingView({
           {timedOut ? (
             <WarningIcon />
           ) : (
-            <span className="text-2xl font-bold text-primary-foreground tracking-tight">OC</span>
+            <span className="text-2xl font-bold text-primary-foreground tracking-tight">QB</span>
           )}
         </div>
-        <h1 className="text-xl font-semibold tracking-tight">OpenClaw Desktop</h1>
+        <h1 className="text-xl font-semibold tracking-tight">Qbot</h1>
       </div>
 
       {!timedOut && (

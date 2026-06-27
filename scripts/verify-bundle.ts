@@ -9,6 +9,7 @@ import { spawnSync } from 'node:child_process'
 import { join } from 'node:path'
 import { verifyControlUiBundle } from './lib/control-ui-verify.ts'
 import { getOpenClawFeishuSdkPackageJsonPath } from './ensure-openclaw-feishu-sdk.ts'
+import { HEARTBEAT_TEMPLATE_RELATIVE_PATH } from './ensure-openclaw-workspace-templates.ts'
 
 const PROJECT_ROOT = process.cwd()
 const BUILD_DIR = join(PROJECT_ROOT, 'build')
@@ -17,6 +18,7 @@ const NODE_EXE = join(BUILD_DIR, 'node', 'node.exe')
 const OPENCLAW_DIR = join(BUILD_DIR, 'openclaw')
 const CLI_VERIFY_TIMEOUT_MS = Number(process.env.OPENCLAW_CLI_VERIFY_TIMEOUT_MS ?? 120_000)
 const QVERIS_SKILL_MARKER = join(OPENCLAW_DIR, 'skills', 'qveris-official', 'SKILL.md')
+const HEARTBEAT_TEMPLATE_MARKER = join(OPENCLAW_DIR, HEARTBEAT_TEMPLATE_RELATIVE_PATH)
 
 async function fileExists(p: string): Promise<boolean> {
   try {
@@ -70,6 +72,13 @@ async function main(): Promise<void> {
     )
   }
   console.log('  [ok] skills/qveris-official')
+
+  if (!(await fileExists(HEARTBEAT_TEMPLATE_MARKER))) {
+    throw new Error(
+      'build/openclaw missing src/agents/templates/HEARTBEAT.md. Run "pnpm run ensure-workspace-templates" before packaging.',
+    )
+  }
+  console.log('  [ok] src/agents/templates/HEARTBEAT.md')
 
   const feishuSdkPkg = getOpenClawFeishuSdkPackageJsonPath(OPENCLAW_DIR)
   if (!(await fileExists(feishuSdkPkg))) {

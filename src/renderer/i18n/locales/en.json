@@ -1,9 +1,9 @@
 {
   "app": {
-    "name": "OpenClaw Desktop"
+    "name": "Qbot"
   },
   "wizard": {
-    "appName": "OpenClaw Desktop",
+    "appName": "Qbot",
     "setupWizard": "Setup Wizard",
     "steps": {
       "welcome": "Welcome",
@@ -20,8 +20,8 @@
       "next": "Next"
     },
     "welcome": {
-      "title": "Welcome to OpenClaw Desktop",
-      "subtitle": "OpenClaw Desktop packages AI assistant as a native Windows desktop app with integrated installation and setup. This wizard will guide you through initial configuration.",
+      "title": "Welcome to Qbot",
+      "subtitle": "Qbot packages AI assistant as a native Windows desktop app with integrated installation and setup. This wizard will guide you through initial configuration.",
       "startHint": "Click \"Start Setup\" below to begin",
       "features": {
         "model": {
@@ -44,7 +44,7 @@
     },
     "model": {
       "title": "Model Configuration",
-      "subtitle": "Select AI model provider and configure API key to power OpenClaw conversations.",
+      "subtitle": "Select AI model provider and configure API key to power Qbot conversations.",
       "providerTitle": "Model Provider",
       "provider": {
         "customLabel": "Custom (OpenAI/Anthropic Compatible)",
@@ -82,7 +82,7 @@
       "title": "QVeris Tools",
       "subtitle": "Add the QVeris API Key used by the bundled qveris-official skill. You can skip this and add it later.",
       "apiKey": "QVeris API Key",
-      "apiKeyStored": "The key is stored locally in OpenClaw config as QVERIS_API_KEY for bundled skills.",
+      "apiKeyStored": "The key is stored locally in Qbot config as QVERIS_API_KEY for bundled skills.",
       "placeholder": "sk-...",
       "testConnection": "Test Connection",
       "testing": "Testing…",
@@ -90,7 +90,7 @@
       "connectionFailed": "Connection failed. Please check the QVeris API Key.",
       "networkError": "Unable to connect to QVeris. Please check network connection.",
       "optionalBadge": "Optional",
-      "skipHint": "You can skip this step. If filled, OpenClaw will pass QVERIS_API_KEY to the QVeris skill.",
+      "skipHint": "You can skip this step. If filled, Qbot will pass QVERIS_API_KEY to the QVeris skill.",
       "showApiKey": "Show QVeris API Key",
       "hideApiKey": "Hide QVeris API Key"
     },
@@ -242,7 +242,7 @@
       "closeToTray": "Minimize to tray when closing",
       "closeToTrayDesc": "App continues running in system tray after closing window",
       "autoStart": "Start at login",
-      "autoStartDesc": "Launch OpenClaw when you sign in to Windows",
+      "autoStartDesc": "Launch Qbot when you sign in to Windows",
       "language": "Display language",
       "languageDesc": "Choose the interface language for the app window and system tray.",
       "languageSelectAria": "Display language",
@@ -264,9 +264,9 @@
       "themeRadiogroupAria": "Theme selection",
       "updateChannelRadiogroupAria": "Update channel",
       "modelSection": "Language model",
-      "modelSectionDesc": "Choose provider, model ID, and credentials—aligned with the setup wizard and native OpenClaw settings; apply to the main default or an existing agent.",
+      "modelSectionDesc": "Choose provider, model ID, and credentials—aligned with the setup wizard and native Qbot settings; apply to the main default or an existing agent.",
       "modelSectionAria": "Language model configuration",
-      "modelNoConfig": "No OpenClaw config yet. Complete the setup wizard first.",
+      "modelNoConfig": "No Qbot config yet. Complete the setup wizard first.",
       "modelTarget": "Apply to",
       "modelTargetDefaults": "Main default (agents.defaults)",
       "modelTargetAgent": "Existing agent (agents.list)",
@@ -314,7 +314,7 @@
       "approvedDesc": "These users can DM the bot without a new pairing code.",
       "loadingApproved": "Loading approved users…",
       "noApproved": "No approved users yet.",
-      "allowlistNote": "Stored in the local Feishu allowlist used by OpenClaw pairing.",
+      "allowlistNote": "Stored in the local Feishu allowlist used by Qbot pairing.",
       "copy": "Copy",
       "copyId": "Copy ID",
       "approve": "Approve",
@@ -342,7 +342,7 @@
       "electronLabel": "Electron",
       "nodeLabel": "Node.js",
       "openclawLabel": "OpenClaw",
-      "appNameTitle": "OpenClaw Desktop",
+      "appNameTitle": "Qbot",
       "mainVersionAria": "Main version",
       "viewOnGithub": "View project on GitHub",
       "fetchingVersions": "Fetching version info…"
@@ -439,8 +439,8 @@
       "listAria": "{{tab}} list",
       "emptyNone": "No {{tab}} found",
       "emptyFiltered": "No {{tab}} match the current filters",
-      "emptyHintNoneSkills": "Skills will appear here once detected in the OpenClaw installation.",
-      "emptyHintNoneExt": "Extensions will appear here once detected in the OpenClaw installation.",
+      "emptyHintNoneSkills": "Skills will appear here once detected in the Qbot installation.",
+      "emptyHintNoneExt": "Extensions will appear here once detected in the Qbot installation.",
       "emptyHintFiltered": "Try adjusting search or filter criteria.",
       "summary": "Showing {{current}} of {{total}} {{tab}} · {{enabled}} enabled",
       "toggleEnableAria": "Enable {{name}}",
@@ -452,7 +452,7 @@
     "updates": {
       "title": "Updates & Maintenance",
       "checkForUpdates": "Check for Updates",
-      "checkHint": "Check if a newer version of OpenClaw Desktop is available on GitHub.",
+      "checkHint": "Check if a newer version of Qbot is available on GitHub.",
       "checkNow": "Check now",
       "checking": "Checking for updates…",
       "checkFailed": "Unable to check for updates",
@@ -533,14 +533,14 @@
       }
     },
     "loading": {
-      "appName": "OpenClaw Desktop",
+      "appName": "Qbot",
       "checkingConfig": "Checking configuration…",
       "timeout": "Gateway startup timeout",
       "retry": "Retry"
     },
     "error": {
-      "appName": "OpenClaw Desktop",
-      "preloadTitle": "OpenClaw Desktop",
+      "appName": "Qbot",
+      "preloadTitle": "Qbot",
       "preloadBody": "Preload script failed to load, internal communication is unavailable. Please try reinstalling or repackaging the app.",
       "preloadHint": "If debugging, check that `index.cjs` exists in `resources/app.asar(.unpacked)/out/preload/`.",
       "retry": "Retry",

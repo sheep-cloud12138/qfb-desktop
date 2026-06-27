@@ -1,9 +1,9 @@
 {
   "app": {
-    "name": "OpenClaw 桌面版"
+    "name": "Qbot"
   },
   "wizard": {
-    "appName": "OpenClaw 桌面版",
+    "appName": "Qbot",
     "setupWizard": "設置嚮導",
     "steps": {
       "welcome": "歡迎",
@@ -20,8 +20,8 @@
       "next": "下一步"
     },
     "welcome": {
-      "title": "歡迎使用 OpenClaw 桌面版",
-      "subtitle": "OpenClaw 桌面版將 AI 助手打包為原生 Windows 桌面應用，集成了安裝與配置流程。本嚮導將引導您完成初始配置。",
+      "title": "歡迎使用 Qbot",
+      "subtitle": "Qbot將 AI 助手打包為原生 Windows 桌面應用，集成了安裝與配置流程。本嚮導將引導您完成初始配置。",
       "startHint": "點擊下方「開始設置」以開始",
       "features": {
         "model": {
@@ -44,7 +44,7 @@
     },
     "model": {
       "title": "模型配置",
-      "subtitle": "選擇 AI 模型提供商並配置 API Key，為 OpenClaw 對話提供動力。",
+      "subtitle": "選擇 AI 模型提供商並配置 API Key，為 Qbot 對話提供動力。",
       "providerTitle": "模型提供商",
       "provider": {
         "customLabel": "自定義（OpenAI/Anthropic 兼容）",
@@ -126,7 +126,7 @@
       "title": "QVeris 工具",
       "subtitle": "填寫 QVeris API Key，給內建 qveris-official 技能使用。也可以先跳過，以後再補。",
       "apiKey": "QVeris API Key",
-      "apiKeyStored": "這個 Key 只會寫入本機 OpenClaw 設定，欄位名是 QVERIS_API_KEY，供技能讀取。",
+      "apiKeyStored": "這個 Key 只會寫入本機 Qbot 設定，欄位名是 QVERIS_API_KEY，供技能讀取。",
       "placeholder": "sk-...",
       "testConnection": "測試連接",
       "testing": "測試中…",
@@ -134,7 +134,7 @@
       "connectionFailed": "連接失敗，請檢查 QVeris API Key。",
       "networkError": "無法連接到 QVeris，請檢查網絡連接。",
       "optionalBadge": "可選",
-      "skipHint": "這一步可以跳過。填寫後，OpenClaw 會把 QVERIS_API_KEY 傳給 QVeris 技能。",
+      "skipHint": "這一步可以跳過。填寫後，Qbot 會把 QVERIS_API_KEY 傳給 QVeris 技能。",
       "showApiKey": "顯示 QVeris API Key",
       "hideApiKey": "隱藏 QVeris API Key"
     },
@@ -286,7 +286,7 @@
       "closeToTray": "關閉時最小化到托盤",
       "closeToTrayDesc": "關閉窗口後應用繼續在系統托盤中運行",
       "autoStart": "登錄時啟動",
-      "autoStartDesc": "登錄 Windows 時自動啟動 OpenClaw",
+      "autoStartDesc": "登錄 Windows 時自動啟動 Qbot",
       "language": "顯示語言",
       "languageDesc": "選擇應用程式視窗與系統匣選單的介面語言。",
       "languageSelectAria": "顯示語言",
@@ -308,9 +308,9 @@
       "themeRadiogroupAria": "主題選擇",
       "updateChannelRadiogroupAria": "更新通道",
       "modelSection": "大模型",
-      "modelSectionDesc": "選擇廠商、模型 ID 與金鑰，與引導精靈及 OpenClaw 原生設定一致；可套用到主程式預設或既有 Agent。",
+      "modelSectionDesc": "選擇廠商、模型 ID 與金鑰，與引導精靈及 Qbot 原生設定一致；可套用到主程式預設或既有 Agent。",
       "modelSectionAria": "大模型設定",
-      "modelNoConfig": "尚未產生 OpenClaw 設定，請先完成設定精靈。",
+      "modelNoConfig": "尚未產生 Qbot 設定，請先完成設定精靈。",
       "modelTarget": "套用範圍",
       "modelTargetDefaults": "主程式預設（agents.defaults）",
       "modelTargetAgent": "既有 Agent（agents.list）",
@@ -358,7 +358,7 @@
       "approvedDesc": "這些用戶可直接私聊機器人，無需新的配對碼。",
       "loadingApproved": "正在加載已批准列表…",
       "noApproved": "暫無已批准用戶。",
-      "allowlistNote": "存儲於 OpenClaw 飛書配對使用的本地白名單。",
+      "allowlistNote": "存儲於 Qbot 飛書配對使用的本地白名單。",
       "copy": "複製",
       "copyId": "複製 ID",
       "approve": "批准",
@@ -386,7 +386,7 @@
       "electronLabel": "Electron",
       "nodeLabel": "Node.js",
       "openclawLabel": "OpenClaw",
-      "appNameTitle": "OpenClaw Desktop",
+      "appNameTitle": "Qbot",
       "mainVersionAria": "主版本",
       "viewOnGithub": "在 GitHub 上查看項目",
       "fetchingVersions": "正在獲取版本信息…"
@@ -483,8 +483,8 @@
       "listAria": "{{tab}}列表",
       "emptyNone": "未找到{{tab}}",
       "emptyFiltered": "沒有符合當前篩選條件的{{tab}}",
-      "emptyHintNoneSkills": "檢測到 OpenClaw 安裝中的技能後將顯示在此處。",
-      "emptyHintNoneExt": "檢測到 OpenClaw 安裝中的擴展後將顯示在此處。",
+      "emptyHintNoneSkills": "檢測到 Qbot 安裝中的技能後將顯示在此處。",
+      "emptyHintNoneExt": "檢測到 Qbot 安裝中的擴展後將顯示在此處。",
       "emptyHintFiltered": "請嘗試調整搜索或篩選條件。",
       "summary": "顯示 {{current}} / {{total}} 個{{tab}}，已啟用 {{enabled}} 個",
       "toggleEnableAria": "啟用 {{name}}",
@@ -496,7 +496,7 @@
     "updates": {
       "title": "更新與維護",
       "checkForUpdates": "檢查更新",
-      "checkHint": "檢查 GitHub 上是否有 OpenClaw Desktop 新版本。",
+      "checkHint": "檢查 GitHub 上是否有 Qbot 新版本。",
       "checkNow": "立即檢查",
       "checking": "正在檢查更新…",
       "checkFailed": "無法檢查更新",
@@ -577,14 +577,14 @@
       }
     },
     "loading": {
-      "appName": "OpenClaw 桌面版",
+      "appName": "Qbot",
       "checkingConfig": "正在檢查配置…",
       "timeout": "網關啟動超時",
       "retry": "重試"
     },
     "error": {
-      "appName": "OpenClaw 桌面版",
-      "preloadTitle": "OpenClaw 桌面版",
+      "appName": "Qbot",
+      "preloadTitle": "Qbot",
       "preloadBody": "預加載腳本未能加載，應用內部通信不可用。請嘗試重新安裝或重新打包應用。",
       "preloadHint": "調試時請確認 `resources/app.asar(.unpacked)/out/preload/` 下存在 `index.cjs`。",
       "retry": "重試",

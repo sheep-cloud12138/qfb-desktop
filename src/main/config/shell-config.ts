@@ -1,6 +1,6 @@
 /**
  * Desktop shell config read/write.
- * Path: %APPDATA%\OpenClaw Desktop\config.json
+ * Path: %APPDATA%\Qbot\config.json
  * Separate from OpenClaw main config; stores shell-only settings.
  */
 

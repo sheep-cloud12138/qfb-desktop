@@ -13,6 +13,10 @@ import {
   ensureOpenClawFeishuLarkSdk,
   getOpenClawFeishuSdkPackageJsonPath,
 } from './ensure-openclaw-feishu-sdk.ts'
+import {
+  ensureOpenClawWorkspaceTemplates,
+  HEARTBEAT_TEMPLATE_RELATIVE_PATH,
+} from './ensure-openclaw-workspace-templates.ts'
 
 const PROJECT_ROOT = process.cwd()
 const BUILD_DIR = join(PROJECT_ROOT, 'build')
@@ -221,6 +225,7 @@ async function main(): Promise<void> {
   console.log('  [ok] build/openclaw/node_modules found')
 
   await ensureOpenClawFeishuLarkSdk(SRC_OPENCLAW)
+  await ensureOpenClawWorkspaceTemplates(SRC_OPENCLAW)
   await patchOpenClawFeishuRegisterOnce(SRC_OPENCLAW)
 
   // --- Ensure resources directory exists ---
@@ -264,11 +269,13 @@ async function main(): Promise<void> {
       join('dist', 'control-ui', 'index.html'),
       'node_modules',
       join('skills', 'qveris-official', 'SKILL.md'),
+      HEARTBEAT_TEMPLATE_RELATIVE_PATH,
     ],
     forceOpenclawCopy,
   )
 
   // Re-apply on resources: copyDir may skip when version matches, leaving stale dist without the Feishu guard.
+  await ensureOpenClawWorkspaceTemplates(DEST_OPENCLAW)
   await patchOpenClawFeishuRegisterOnce(DEST_OPENCLAW)
 
   await ensureOpenClawFeishuLarkSdk(DEST_OPENCLAW)
@@ -294,6 +301,7 @@ async function main(): Promise<void> {
     join(DEST_OPENCLAW, 'dist', 'control-ui', 'index.html'),
     join(DEST_OPENCLAW, 'node_modules'),
     join(DEST_OPENCLAW, 'skills', 'qveris-official', 'SKILL.md'),
+    join(DEST_OPENCLAW, HEARTBEAT_TEMPLATE_RELATIVE_PATH),
     getOpenClawFeishuSdkPackageJsonPath(DEST_OPENCLAW),
   ]
   for (const p of required) {

@@ -26,7 +26,7 @@ export interface TrayMenuStrings {
 }
 
 const EN: TrayMenuStrings = {
-  openApp: 'Open OpenClaw',
+  openApp: 'Open Qbot',
   updateAvailable: 'Update available',
   gatewayRunning: 'Gateway: Running',
   gatewayStarting: 'Gateway: Starting',
@@ -42,7 +42,7 @@ const EN: TrayMenuStrings = {
 }
 
 const ZH_CN: TrayMenuStrings = {
-  openApp: '打开 OpenClaw',
+  openApp: '打开 Qbot',
   updateAvailable: '有更新可用',
   gatewayRunning: '网关：运行中',
   gatewayStarting: '网关：启动中',
@@ -58,7 +58,7 @@ const ZH_CN: TrayMenuStrings = {
 }
 
 const ZH_TW: TrayMenuStrings = {
-  openApp: '開啟 OpenClaw',
+  openApp: '開啟 Qbot',
   updateAvailable: '有更新可用',
   gatewayRunning: '閘道：運行中',
   gatewayStarting: '閘道：啟動中',
@@ -74,7 +74,7 @@ const ZH_TW: TrayMenuStrings = {
 }
 
 const FR: TrayMenuStrings = {
-  openApp: 'Ouvrir OpenClaw',
+  openApp: 'Ouvrir Qbot',
   updateAvailable: 'Mise à jour disponible',
   gatewayRunning: 'Passerelle : en cours d’exécution',
   gatewayStarting: 'Passerelle : démarrage',
@@ -90,7 +90,7 @@ const FR: TrayMenuStrings = {
 }
 
 const JA: TrayMenuStrings = {
-  openApp: 'OpenClaw を開く',
+  openApp: 'Qbot を開く',
   updateAvailable: 'アップデートがあります',
   gatewayRunning: 'ゲートウェイ: 実行中',
   gatewayStarting: 'ゲートウェイ: 起動中',
@@ -106,7 +106,7 @@ const JA: TrayMenuStrings = {
 }
 
 const KO: TrayMenuStrings = {
-  openApp: 'OpenClaw 열기',
+  openApp: 'Qbot 열기',
   updateAvailable: '업데이트 사용 가능',
   gatewayRunning: '게이트웨이: 실행 중',
   gatewayStarting: '게이트웨이: 시작 중',
@@ -122,7 +122,7 @@ const KO: TrayMenuStrings = {
 }
 
 const ES: TrayMenuStrings = {
-  openApp: 'Abrir OpenClaw',
+  openApp: 'Abrir Qbot',
   updateAvailable: 'Actualización disponible',
   gatewayRunning: 'Puerta de enlace: En ejecución',
   gatewayStarting: 'Puerta de enlace: Iniciando',
@@ -171,37 +171,37 @@ export function getFeishuPairingNotificationStrings(locale: ShellLocale): Feishu
   switch (locale) {
     case 'zh-CN':
       return {
-        title: 'OpenClaw 桌面版',
+        title: 'Qbot',
         bodyTemplate: '新的飞书 DM 待审批，配对码：{{code}}',
       }
     case 'zh-TW':
       return {
-        title: 'OpenClaw 桌面版',
+        title: 'Qbot',
         bodyTemplate: '新的飛書 DM 待審批，配對碼：{{code}}',
       }
     case 'ja':
       return {
-        title: 'OpenClaw',
+        title: 'Qbot',
         bodyTemplate: '新しい Feishu DM の承認待ち。ペアリングコード: {{code}}',
       }
     case 'ko':
       return {
-        title: 'OpenClaw',
+        title: 'Qbot',
         bodyTemplate: '새 Feishu DM 승인 대기, 페어링 코드: {{code}}',
       }
     case 'fr':
       return {
-        title: 'OpenClaw',
+        title: 'Qbot',
         bodyTemplate: 'Nouvelle demande d’appariement Feishu DM, code : {{code}}',
       }
     case 'es':
       return {
-        title: 'OpenClaw',
+        title: 'Qbot',
         bodyTemplate: 'Nueva solicitud de emparejamiento Feishu DM, código: {{code}}',
       }
     default:
       return {
-        title: 'OpenClaw Desktop',
+        title: 'Qbot',
         bodyTemplate: 'New Feishu DM pairing request, code: {{code}}',
       }
   }
